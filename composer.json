@@ -1,0 +1,27 @@
+{
+    "name": "yansongda/git-notify",
+    "description": "notify the push to the chatgroup.",
+    "keywords": ["notify", "git"],
+    "support": {
+        "issues": "https://github.com/yansongda/git-notify/issues",
+        "source": "https://github.com/yansongda/git-notify"
+    },
+    "authors": [
+        {
+            "name": "yansongda",
+            "email": "me@yansongda.cn"
+        }
+    ],
+    "require": {
+        "monolog/monolog": "^1.23",
+        "pimple/pimple": "^3.0",
+        "guzzlehttp/guzzle": "^6.3",
+        "symfony/http-foundation": "^3.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Yansongda\\GitNotify\\": "src/"
+        }
+    },
+    "license": "MIT"
+}
