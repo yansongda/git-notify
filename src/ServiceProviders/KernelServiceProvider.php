@@ -18,8 +18,8 @@ class KernelServiceProvider implements ServiceProviderInterface
             $output = "%datetime% > %level_name% > %message% %context% %extra%\n\n";
             $formatter = new LineFormatter($output);
 
-            $log = new Logger('notify');
-            $handler = new StreamHandler(dirname(dirname(dirname(__FILE__))) . '/log/notify.log');
+            $log = new Logger('gitnotify');
+            $handler = new StreamHandler('./log/notify.log');
             $handler->setFormatter($formatter);
             $log->pushHandler($handler);
 
