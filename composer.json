@@ -14,7 +14,6 @@
     ],
     "require": {
         "pimple/pimple": "^3.0",
-        "guzzlehttp/guzzle": "^6.3",
         "symfony/http-foundation": "^3.3",
         "yansongda/supports": "^1.0"
     },

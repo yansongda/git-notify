@@ -4,12 +4,15 @@ namespace Yansongda\GitNotify\Gateways\Destinations;
 
 use Pimple\Container;
 use Yansongda\Supports\Log;
+use Yansongda\Supports\Traits\HasHttpRequest;
 use Yansongda\GitNotify\Contracts\SourceInterface;
 use Yansongda\GitNotify\Contracts\DestinationInterface;
 use Yansongda\GitNotify\Exceptions\GatewayException;
 
 class DingtalkGateway implements DestinationInterface
 {
+    use HasHttpRequest;
+
     /**
      * gateway
      *
@@ -60,11 +63,10 @@ class DingtalkGateway implements DestinationInterface
             return 'success';
         }
 
-        return $this->app->guzzle->request(
-            'POST',
+        return $this->post(
             $this->gateway,
+            json_encode($this->data),
             [
-                'body' => json_encode($this->data),
                 'headers' => [
                     'Content-Type' => 'application/json'
                 ]

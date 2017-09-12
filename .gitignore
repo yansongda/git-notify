@@ -1,6 +1,3 @@
-/log/notify.log
 /vendor
-/public
-index.php
 composer.lock
 .DS_Store
