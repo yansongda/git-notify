@@ -3,7 +3,7 @@
 namespace Yansongda\GitNotify\Gateways\Sources;
 
 use Pimple\Container;
-use Yansongda\GitNotify\Application;
+use Yansongda\Supports\Log;
 use Yansongda\GitNotify\Contracts\SourceInterface;
 use Yansongda\GitNotify\Exceptions\GatewayException;
 
@@ -42,6 +42,8 @@ class GiteeGateway implements SourceInterface
         $this->raw = json_decode($app['request']->getContent(), true);
 
         if (is_null($this->raw)) {
+            Log::error('data is null');
+
             throw new GatewayException("data is null", 1);
         }
 
@@ -140,7 +142,7 @@ class GiteeGateway implements SourceInterface
     public function setPassword($value)
     {
         if (!isset($this->raw['password']) || $this->raw['password'] != $value) {
-            $this->app->log->warning('推送攻击：', $this->raw);
+            Log::warning('推送攻击：', $this->raw);
 
             throw new GatewayException("password not match", 2);
         }

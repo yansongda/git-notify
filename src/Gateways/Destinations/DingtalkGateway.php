@@ -3,6 +3,7 @@
 namespace Yansongda\GitNotify\Gateways\Destinations;
 
 use Pimple\Container;
+use Yansongda\Supports\Log;
 use Yansongda\GitNotify\Contracts\SourceInterface;
 use Yansongda\GitNotify\Contracts\DestinationInterface;
 use Yansongda\GitNotify\Exceptions\GatewayException;
@@ -54,7 +55,7 @@ class DingtalkGateway implements DestinationInterface
     public function send()
     {
         if ($this->gateway === 'local') {
-            $this->app->log->debug('send data:', $this->data);
+            Log::debug('send data:', $this->data);
 
             return 'success';
         }

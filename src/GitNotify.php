@@ -2,9 +2,15 @@
 
 namespace Yansongda\GitNotify;
 
+use Monolog\Logger;
+use Monolog\Handler\NullHandler;
+use Monolog\Handler\StreamHandler;
+use Monolog\Formatter\LineFormatter;
 use Pimple\Container;
+use Yansongda\Supports\Log;
+use Yansongda\Supports\Config;
 
-class Application extends Container
+class GitNotify extends Container
 {
     /**
      * @var array
@@ -20,15 +26,19 @@ class Application extends Container
      *
      * @author yansongda <me@yansongda.cn>
      */
-    public function __construct()
+    public function __construct(array $config)
     {
         parent::__construct();
 
+        $this['config'] = new Config($config);
         $this->registerProviders();
+        $this->initLog();
     }
 
     /**
      * Register service providers.
+     *
+     * @author yansongda <me@yansongda.cn>
      *
      * @return $this
      */
@@ -42,7 +52,29 @@ class Application extends Container
     }
 
     /**
+     * init logger.
+     *
+     * @author yansongda <me@yansongda.cn>
+     */
+    public function initLog()
+    {
+        if (Log::hasLogger()) {
+            return;
+        }
+
+        $handler = new StreamHandler($this['config']->get('log', sys_get_temp_dir() . '/log/GitNotify.log'));
+        $handler->setFormatter(new LineFormatter("%datetime% > %level_name% > %message% %context% %extra%\n\n"));
+
+        $logger = new Logger('GitNotify');
+        $logger->pushHandler($handler);
+
+        Log::setLogger($logger);
+    }
+
+    /**
      * Magic get access.
+     *
+     * @author yansongda <me@yansongda.cn>
      *
      * @param string $id
      *
@@ -56,6 +88,8 @@ class Application extends Container
     /**
      * Magic set access.
      *
+     * @author yansongda <me@yansongda.cn>
+     *  
      * @param string $id
      * @param mixed  $value
      */
