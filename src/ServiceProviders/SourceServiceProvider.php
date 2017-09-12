@@ -18,7 +18,7 @@ class SourceServiceProvider implements ServiceProviderInterface
                 throw new InvalidArgumentException("Source Gateway [" . $pimple['request']->query->get('from') . "] is not supported.");
             }
 
-            $gateway = 'App\\Gateways\\Sources\\'.ucfirst($pimple['request']->query->get('from')) . 'Gateway';
+            $gateway = 'Yansongda\\GitNotify\\Gateways\\Sources\\'.ucfirst($pimple['request']->query->get('from')) . 'Gateway';
 
             return new $gateway($pimple);
         };

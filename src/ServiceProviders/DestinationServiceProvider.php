@@ -17,7 +17,7 @@ class DestinationServiceProvider implements ServiceProviderInterface
                 throw new InvalidArgumentException("Destination Gateway [" . $pimple['request']->query->get('to') . "] is not supported.");
             }
 
-            $gateway = 'App\\Gateways\\Destinations\\'.ucfirst($pimple['request']->query->get('to')) . 'Gateway';
+            $gateway = 'Yansongda\\GitNotify\\Gateways\\Destinations\\'.ucfirst($pimple['request']->query->get('to')) . 'Gateway';
 
             return new $gateway($pimple);
         };
