@@ -20,7 +20,7 @@ git 代码推送通知
 - dingtalk （钉钉）
 
 ## 安装
-`composer require yansongda/git_notify`
+`composer require yansongda/git-notify`
 
 ## 使用方法
 ```php
@@ -28,7 +28,7 @@ git 代码推送通知
 
 require './vendor/autoload.php';
 
-$app = new Yansongda\GitNotify\Application();
+$app = new Yansongda\GitNotify\GitNotify();
 $app->from->setPassword('88793650');
 //$app->destination->gateway = 'https://oapi.dingtalk.com/robot/send?access_token=36c01ca8552fa8f9f6xxxxx';
 
