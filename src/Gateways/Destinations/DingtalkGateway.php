@@ -80,8 +80,8 @@ class DingtalkGateway implements DestinationInterface
     {
         $this->data['msgtype'] = 'text';
         $this->data['text']['content'] = "项目名称：" . $this->app->from->getRepoName() .
-                                        "\n\n项目描述：" . $this->app->from->getRepoDes() . 
-                                        "\n\n推送理由：" . $this->app->from->getReason() . 
+                                        "\n\n项目描述：" . $this->app->from->getRepoDes() .
+                                        "\n\n推送理由：" . $this->app->from->getReason() .
                                         "\n\n推送时间：" . date('Y-m-d H:i:s');
         $this->data['at'] = ["isAtAll" => true];
     }
