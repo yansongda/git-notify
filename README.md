@@ -23,6 +23,11 @@ git 代码推送通知
 `composer require yansongda/git-notify`
 
 ## 使用方法
+
+### git webhook
+`http://your-domain/?from=gitee&to=dingtalk`
+
+### 服务端
 ```php
 <?php
 
