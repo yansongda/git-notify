@@ -12,4 +12,13 @@ interface DestinationInterface
      * @return mixed
      */
     public function send();
+
+    /**
+     * set send template.
+     *
+     * @author yansongda <me@yansongda.cn>
+     *
+     * @return mixed
+     */
+    public function setTemplate();
 }

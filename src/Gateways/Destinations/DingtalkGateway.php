@@ -79,7 +79,7 @@ class DingtalkGateway implements DestinationInterface
      *
      * @author yansongda <me@yansongda.cn>
      */
-    protected function setTemplate()
+    public function setTemplate()
     {
         $this->data['msgtype'] = 'text';
         $this->data['text']['content'] = "项目名称：" . $this->app->from->getRepoName() .
