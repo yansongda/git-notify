@@ -2,6 +2,8 @@
 
 namespace Yansongda\GitNotify\Contracts;
 
+use Closure;
+
 interface DestinationInterface
 {
     /**
@@ -14,11 +16,11 @@ interface DestinationInterface
     public function send();
 
     /**
-     * set send template.
+     * template
      *
      * @author yansongda <me@yansongda.cn>
      *
-     * @return mixed
+     * @param Closure|null $template
      */
-    public function setTemplate();
+    public function setTemplate(Closure $template = null);
 }

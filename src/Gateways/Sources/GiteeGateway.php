@@ -10,13 +10,6 @@ use Yansongda\GitNotify\Exceptions\GatewayException;
 class GiteeGateway implements SourceInterface
 {
     /**
-     * password.
-     *
-     * @var string
-     */
-    protected $password = '';
-
-    /**
      * raw data.
      *
      * @var array
@@ -133,18 +126,21 @@ class GiteeGateway implements SourceInterface
     }
 
     /**
-     * set password.
+     * magic set
      *
      * @author yansongda <me@yansongda.cn>
      *
-     * @param string $value
+     * @param string  $id
+     * @param mixed $value
      */
-    public function setPassword($value)
+    public function __set($id, $value)
     {
-        if (!isset($this->raw['password']) || $this->raw['password'] != $value) {
+        if ($id === 'password' && (!isset($this->raw['password']) || $this->raw['password'] != $value)) {
             Log::warning('推送攻击：', $this->raw);
 
             throw new GatewayException("password not match", 2);
         }
+
+        $this->raw[$id] = $value;
     }
 }

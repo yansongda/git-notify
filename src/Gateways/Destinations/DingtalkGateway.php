@@ -2,6 +2,7 @@
 
 namespace Yansongda\GitNotify\Gateways\Destinations;
 
+use Closure;
 use Pimple\Container;
 use Yansongda\Supports\Log;
 use Yansongda\Supports\Traits\HasHttpRequest;
@@ -75,18 +76,25 @@ class DingtalkGateway implements DestinationInterface
     }
 
     /**
-     * set data.
+     * set template
      *
      * @author yansongda <me@yansongda.cn>
+     *
+     * @param Closure|null $template
      */
-    public function setTemplate()
+    public function setTemplate(Closure $template = null)
     {
-        $this->data['msgtype'] = 'text';
-        $this->data['text']['content'] = "项目名称：" . $this->app->from->getRepoName() .
-                                        "\n\n项目描述：" . $this->app->from->getRepoDes() .
-                                        "\n\n推送理由：" . $this->app->from->getReason() .
-                                        "\n\n推送时间：" . date('Y-m-d H:i:s');
-        $this->data['at'] = ["isAtAll" => true];
+        if ($template == null) {
+            $this->data['msgtype'] = 'text';
+            $this->data['text']['content'] = "项目名称：" . $this->app->from->getRepoName() .
+                                            "\n\n项目描述：" . $this->app->from->getRepoDes() .
+                                            "\n\n推送理由：" . $this->app->from->getReason() .
+                                            "\n\n推送时间：" . date('Y-m-d H:i:s');
+            $this->data['at'] = ["isAtAll" => true];
+        } else {
+            $this->data = $template($this->app->from);
+        }
+        
     }
 
     /**
