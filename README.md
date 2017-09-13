@@ -33,18 +33,34 @@ git 代码推送通知
 
 require './vendor/autoload.php';
 
+use Yansongda\Supports\Log;
+
+// 可选。如果不配置，则日志保存在系统临时目录下
 $config = [
     'log' => '/temp/GitNotify.log',
 ];
 $app = new Yansongda\GitNotify\GitNotify($config);
-// $app->from->setPassword('88793650');
+
+// 可选。gitee 可以设置 webhook 密码，防止 URL 被恶意请求
+// $app->from->password = '88793650';
+
+// 可选。可以随意设置发送模板与格式。这里用到闭包。
+// $from 为 git 服务。
+/* $app->destination->setTemplate(function ($from) {
+    $data['msgtype'] = 'hahaha';
+    $data['text']['content'] = "姓名：" . $from->user_name .
+                                "\n\before：" . $from->before .
+                                "\n\nafter：" . $from->after .
+                                "\n\n推送时间：" . date('Y-m-d H:i:s');
+
+    return $data;
+});*/
+
 $app->destination->gateway = 'https://oapi.dingtalk.com/robot/send?access_token=36c01ca8552fa8f9f6xxxxx';
 
 $response = $app->destination->send();
-$app->log->info('发送结果：', $response->getBody()->getContents());
+Log::info('发送结果：', $response->getBody()->getContents());
 ```
-
-`$config` 可选，如果不配置，则日志保存在系统临时目录下。
 
 ## LICENSE
 MIT
