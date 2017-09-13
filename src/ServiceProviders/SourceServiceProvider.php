@@ -13,7 +13,7 @@ class SourceServiceProvider implements ServiceProviderInterface
     {
         $pimple['from'] = function ($pimple) {
             if (!file_exists(dirname(dirname(__FILE__)) . '/Gateways/Sources/' . ucfirst($pimple['request']->query->get('from')) . 'Gateway.php')) {
-                Log::error('InvalidArgumentException:', "Source Gateway [" . $pimple['request']->query->get('to') . "] is not supported.");
+                Log::error('InvalidArgumentException:', "Source Gateway [" . $pimple['request']->query->get('from') . "] is not supported.");
 
                 throw new InvalidArgumentException("Source Gateway [" . $pimple['request']->query->get('from') . "] is not supported.");
             }
