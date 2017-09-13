@@ -12,7 +12,7 @@ class DestinationServiceProvider implements ServiceProviderInterface
     {
         $pimple['destination'] = function ($pimple) {
             if (!file_exists(dirname(dirname(__FILE__)) . '/Gateways/Destinations/' . ucfirst($pimple['request']->query->get('to')) . 'Gateway.php')) {
-                Log::error('InvalidArgumentException:', "Destination Gateway [" . $pimple['request']->query->get('to') . "] is not supported.");
+                Log::error('InvalidArgumentException:' . "Destination Gateway [" . $pimple['request']->query->get('to') . "] is not supported.");
 
                 throw new InvalidArgumentException("Destination Gateway [" . $pimple['request']->query->get('to') . "] is not supported.");
             }
