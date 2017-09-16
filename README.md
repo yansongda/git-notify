@@ -8,6 +8,8 @@ git 代码推送通知
 
 现在应该基本每个公司用钉钉，而钉钉又有机器人可以自动推送，😆，git 可以使用 webhook，于是，就有了这样一个系统。
 
+当然，根据 git 的 webhook 特性，**大家可以打开脑洞，随意实现有意思的功能**。
+
 ## 特性
 1. 隐藏不需要关心的内部流程
 2. 可以随意增加现有类库中没有的服务
@@ -16,8 +18,9 @@ git 代码推送通知
 ### git 提供商
 - gitee （码云）
 
-### IM 消息推送服务
-- dingtalk （钉钉）
+### destinations
+- dingtalk （钉钉）  
+实现消息推送功能
 
 ## 安装
 `composer require yansongda/git-notify`
@@ -58,7 +61,7 @@ $app = new Yansongda\GitNotify\GitNotify($config);
 
 $app->destination->gateway = 'https://oapi.dingtalk.com/robot/send?access_token=36c01ca8552fa8f9f6xxxxx';
 
-$response = $app->destination->send();
+$response = $app->destination->apply();
 Log::info('发送结果：', $response->getBody()->getContents());
 ```
 

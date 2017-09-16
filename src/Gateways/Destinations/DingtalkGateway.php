@@ -56,7 +56,7 @@ class DingtalkGateway implements DestinationInterface
      *
      * @return string
      */
-    public function send()
+    public function apply()
     {
         if ($this->gateway === 'local') {
             Log::debug('send data:', $this->data);
@@ -84,17 +84,14 @@ class DingtalkGateway implements DestinationInterface
      */
     public function setTemplate(Closure $template = null)
     {
-        if ($template == null) {
-            $this->data['msgtype'] = 'text';
-            $this->data['text']['content'] = "项目名称：" . $this->app->from->getRepoName() .
-                                            "\n\n项目描述：" . $this->app->from->getRepoDes() .
-                                            "\n\n推送理由：" . $this->app->from->getReason() .
-                                            "\n\n推送时间：" . date('Y-m-d H:i:s');
-            $this->data['at'] = ["isAtAll" => true];
-        } else {
-            $this->data = $template($this->app->from);
-        }
+        $data['msgtype'] = 'text';
+        $data['text']['content'] = "项目名称：" . $this->app->from->getRepoName() .
+                                        "\n\n项目描述：" . $this->app->from->getRepoDes() .
+                                        "\n\n推送理由：" . $this->app->from->getReason() .
+                                        "\n\n推送时间：" . date('Y-m-d H:i:s');
+        $data['at'] = ["isAtAll" => true];
         
+        $this->data = $template == null ? $data : $template($this->app->from);
     }
 
     /**
