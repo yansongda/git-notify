@@ -1,6 +1,6 @@
 {
     "name": "yansongda/git-notify",
-    "description": "notify the push to the chatgroup.",
+    "description": "notify the git push.",
     "keywords": ["notify", "git"],
     "support": {
         "issues": "https://github.com/yansongda/git-notify/issues",
