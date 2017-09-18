@@ -42,14 +42,14 @@ use Yansongda\Supports\Log;
 $config = [
     'log' => '/temp/GitNotify.log',
 ];
-$app = new Yansongda\GitNotify\GitNotify($config);
+$notify = new Yansongda\GitNotify\GitNotify($config);
 
 // 可选。gitee 可以设置 webhook 密码，防止 URL 被恶意请求
-// $app->from->password = '88793650';
+// $notify->from->password = '123456';
 
 // 可选。可以随意设置发送模板与格式。这里用到闭包。
 // $from 为 git 服务。
-/* $app->destination->setTemplate(function ($from) {
+/* $notify->destination->setTemplate(function ($from) {
     $data['msgtype'] = 'hahaha';
     $data['text']['content'] = "姓名：" . $from->user_name .
                                 "\n\before：" . $from->before .
@@ -59,9 +59,9 @@ $app = new Yansongda\GitNotify\GitNotify($config);
     return $data;
 });*/
 
-$app->destination->gateway = 'https://oapi.dingtalk.com/robot/send?access_token=36c01ca8552fa8f9f6xxxxx';
+$notify->destination->gateway = 'https://oapi.dingtalk.com/robot/send?access_token=36c01ca8552fa8f9f6xxxxx';
 
-$response = $app->destination->apply();
+$response = $notify->destination->apply();
 Log::info('发送结果：', $response->getBody()->getContents());
 ```
 
