@@ -2,12 +2,7 @@
 
 namespace Yansongda\GitNotify;
 
-use Monolog\Logger;
-use Monolog\Handler\NullHandler;
-use Monolog\Handler\StreamHandler;
-use Monolog\Formatter\LineFormatter;
 use Pimple\Container;
-use Yansongda\Supports\Log;
 use Yansongda\Supports\Config;
 
 class GitNotify extends Container
@@ -32,7 +27,6 @@ class GitNotify extends Container
 
         $this['config'] = new Config($config);
         $this->registerProviders();
-        $this->initLog();
     }
 
     /**
@@ -49,26 +43,6 @@ class GitNotify extends Container
         }
 
         return $this;
-    }
-
-    /**
-     * init logger.
-     *
-     * @author yansongda <me@yansongda.cn>
-     */
-    public function initLog()
-    {
-        if (Log::hasLogger()) {
-            return;
-        }
-
-        $handler = new StreamHandler($this['config']->get('log', sys_get_temp_dir() . '/log/GitNotify.log'));
-        $handler->setFormatter(new LineFormatter("%datetime% > %level_name% > %message% %context% %extra%\n\n"));
-
-        $logger = new Logger('GitNotify');
-        $logger->pushHandler($handler);
-
-        Log::setLogger($logger);
     }
 
     /**

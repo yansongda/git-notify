@@ -4,7 +4,6 @@ namespace Yansongda\GitNotify\Gateways\Destinations;
 
 use Closure;
 use Pimple\Container;
-use Yansongda\Supports\Log;
 use Yansongda\Supports\Traits\HasHttpRequest;
 use Yansongda\GitNotify\Contracts\SourceInterface;
 use Yansongda\GitNotify\Contracts\DestinationInterface;
@@ -19,7 +18,7 @@ class DingtalkGateway implements DestinationInterface
      *
      * @var string
      */
-    protected $gateway = 'local';
+    public $gateway = 'local';
 
     /**
      * send data
@@ -59,9 +58,7 @@ class DingtalkGateway implements DestinationInterface
     public function apply()
     {
         if ($this->gateway === 'local') {
-            Log::debug('send data:', $this->data);
-
-            return 'success';
+            throw new GatewayException('gateway unset!', 2);
         }
 
         return $this->post(
@@ -104,6 +101,6 @@ class DingtalkGateway implements DestinationInterface
      */
     public function __set($id, $value)
     {
-        $this->gateway = $value;
+        $this->{$id} = $value;
     }
 }

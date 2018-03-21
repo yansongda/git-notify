@@ -36,13 +36,7 @@ git 代码推送通知
 
 require './vendor/autoload.php';
 
-use Yansongda\Supports\Log;
-
-// 可选。如果不配置，则日志保存在系统临时目录下
-$config = [
-    'log' => '/temp/GitNotify.log',
-];
-$notify = new Yansongda\GitNotify\GitNotify($config);
+$notify = new Yansongda\GitNotify\GitNotify();
 
 // 可选。gitee 可以设置 webhook 密码，防止 URL 被恶意请求
 // $notify->from->password = '123456';
@@ -62,7 +56,7 @@ $notify = new Yansongda\GitNotify\GitNotify($config);
 $notify->destination->gateway = 'https://oapi.dingtalk.com/robot/send?access_token=36c01ca8552fa8f9f6xxxxx';
 
 $response = $notify->destination->apply();
-Log::info('发送结果：', $response->getBody()->getContents());
+$result = $response->getBody()->getContents();
 ```
 
 ## LICENSE
